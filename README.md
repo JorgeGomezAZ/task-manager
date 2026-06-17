@@ -42,7 +42,7 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 3. Configure PostgreSQL
-export DATABASE_URL=******localhost:5432/task_manager
+export DATABASE_URL=postgresql+psycopg://postgres@localhost:5432/task_manager
 
 # 4. Run the Alembic migration
 alembic upgrade head
