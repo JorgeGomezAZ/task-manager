@@ -23,12 +23,12 @@ def get_current_user(
     if payload is None:
         raise credentials_exception
 
-    user_id: int | None = payload.get("sub")
+    user_id: str | None = payload.get("sub")
     if user_id is None:
         raise credentials_exception
 
-    token_data = TokenData(user_id=int(user_id))
-    user = db.get(User, token_data.user_id)
+    token_data = TokenData(user_id=user_id)
+    user = db.get(User, int(token_data.user_id))
     if user is None or not user.is_active:
         raise credentials_exception
     return user
