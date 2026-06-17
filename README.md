@@ -51,6 +51,8 @@ alembic upgrade head
 uvicorn app.main:app --reload
 ```
 
+If `DATABASE_URL` is unset, the app falls back to `postgresql+psycopg://postgres@localhost:5432/task_manager`, which is intended for local development only. Set an explicit PostgreSQL connection string in every shared or production environment.
+
 Open **http://localhost:8000/docs** to explore and test the API interactively.
 
 ## API Endpoints
