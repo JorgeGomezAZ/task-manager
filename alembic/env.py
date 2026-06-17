@@ -15,9 +15,10 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # Import models so Alembic can detect schema changes for autogenerate
-from app.database import Base  # noqa: E402
+from app.database import Base, DATABASE_URL  # noqa: E402
 import app.models  # noqa: E402, F401
 
+config.set_main_option("sqlalchemy.url", DATABASE_URL)
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

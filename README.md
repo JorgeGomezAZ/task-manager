@@ -6,7 +6,7 @@ A RESTful task management API built with **FastAPI**, **SQLAlchemy**, **Alembic*
 
 - **Authentication**: Register and login with email/password. Passwords hashed with `passlib[bcrypt]`. JWTs issued via `python-jose`.
 - **Task CRUD**: Create, list, update, and delete tasks. All task routes are protected and scoped to the authenticated user.
-- **Database**: SQLite (default) with SQLAlchemy ORM. Schema managed with Alembic migrations.
+- **Database**: PostgreSQL (default) with SQLAlchemy ORM. Schema managed with Alembic migrations.
 - **Interactive docs**: Available at `/docs` (Swagger UI).
 
 ## Project Structure
@@ -41,10 +41,13 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 # 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run the Alembic migration (creates the SQLite database)
+# 3. Configure PostgreSQL
+export DATABASE_URL=******localhost:5432/task_manager
+
+# 4. Run the Alembic migration
 alembic upgrade head
 
-# 4. Start the server
+# 5. Start the server
 uvicorn app.main:app --reload
 ```
 

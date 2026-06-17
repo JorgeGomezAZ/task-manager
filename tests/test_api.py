@@ -1,6 +1,6 @@
 """
 Integration tests for the Task Manager API.
-Uses an in-memory SQLite database to avoid touching the real database.
+Uses an in-memory SQLite database so tests stay isolated even though the app defaults to PostgreSQL.
 """
 import pytest
 from fastapi.testclient import TestClient
@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.database import Base, get_db
+from app.database import Base, get_db, get_engine_kwargs
 from app.main import app
 
 # ── In-memory test database ────────────────────────────────────────────────────
@@ -17,7 +17,7 @@ TEST_DATABASE_URL = "sqlite://"
 
 engine = create_engine(
     TEST_DATABASE_URL,
-    connect_args={"check_same_thread": False},
+    **get_engine_kwargs(TEST_DATABASE_URL),
     poolclass=StaticPool,
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
